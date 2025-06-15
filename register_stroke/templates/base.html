@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" data-tag="body" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta name="description" content="Nevrogram">
+    <link rel="icon" href="{% static 'img/fav/fav.ico' %}" type="image">
+    <link rel="apple-touch-icon" sizes="180x180"
+      href="{% static 'img/fav/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32"
+      href="{% static 'img/fav/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16"
+      href="{% static 'img/fav/favicon-16x16.png' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    
+    <title>
+      {% block title %}NEVROGRAM{% endblock %}
+    </title>
+  <head/>
+  <!-- <body data-tag="body" class="d-flex flex-column" data-bs-theme='light'> -->
+  <body>
+    <main class="container">
+      {% include 'includes/header.html' %}
+      {% include 'includes/nav.html' %}
+      {% block content %}
+      {% endblock %}
+      {% include 'includes/aside.html' %}
+      {% include 'includes/footer.html' %} 
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script>
+      const darkModeSwitchInput = document.querySelector('input#darkModeSwitch');
+      const bodyTag = document.querySelector('[data-tag="body"]');
+
+      const themeSwitch = () => {
+        const currentState = bodyTag.getAttribute('data-bs-theme');
+        
+        switch (currentState) {
+          case "light":
+            bodyTag.setAttribute('data-bs-theme', "dark");
+            break;
+          default:
+            bodyTag.setAttribute('data-bs-theme', "light");
+        }
+      };
+      darkModeSwitchInput.addEventListener('change', themeSwitch);
+    </script>
+   </main>
+  </body>  
+</html>

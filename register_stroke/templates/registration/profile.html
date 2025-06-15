@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="row g-5">
+  <div class="col-md-8">
+
+    <article class="blog-post">
+        {% if profile.photo %}
+        <img class="profile-image" src="{{ profile.photo.url }}" alt="photo profile user">
+        {% endif %}
+        <h2 class="link-body-emphasis mb-1 fst-italic">Профайл пользователя: {{user}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic"> {{profile.first_name}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic"> {{profile.last_name}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic"> {{profile.date_of_birth}}</h2>
+
+    </article>
+
+    <article class="blog-post">
+      <h2 class="link-body-emphasis mb-1 fst-italic"></h2>
+      <p class="fst-italic">Страна: <a href="#"></a></p>
+      <p class="fst-italic">Город: </p>
+      <p class="fst-italic">РСЦ: </p>
+      <p class="fst-italic">ПСО: </p>
+      <p class="fst-italic">Название медицинского учреждения: </p>
+    </article>
+
+    <hr>
+
+
+</div>
+
+{% include "registration/profile_aside.html" %}
+{% endblock %}
