@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
-from users.constant import MAX_LENGHT_USERS, MAX_LENGHT_EMAIL
+from users.constant import MAX_LENGHT_USERS, MAX_LENGHT_EMAIL, EMPTY
 
 
 class User(AbstractUser):
@@ -44,15 +44,20 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField('User', verbose_name=('profile'), on_delete=models.CASCADE)
     first_name = models.CharField(
         max_length=MAX_LENGHT_USERS, blank=True, verbose_name='First name'
+    )
+    surname = models.CharField(
+        max_length=MAX_LENGHT_USERS, blank=True, verbose_name='Surname'
     )
     last_name = models.CharField(
         max_length=MAX_LENGHT_USERS, blank=True, verbose_name='Last name'
     )
+    country_code = models.CharField(max_length=5, default=EMPTY)
+    phone_number = models.CharField(max_length=15, default=EMPTY)
     date_of_birth = models.DateField('Вate of birth', auto_now=False, auto_now_add=False, blank=True, null=True)
-    photo = models.ImageField('Photo user',default='', upload_to='users/profile_images/%Y/%m/%d/', blank=True, height_field=None, width_field=None, max_length=None)
+    photo = models.ImageField('Photo user', upload_to='users/profile_images/%Y/%m/%d/', blank=True, null=True, height_field=None, width_field=None, max_length=None)
 
     class Meta:
         ordering = ('user',)

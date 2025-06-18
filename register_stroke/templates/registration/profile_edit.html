@@ -1,0 +1,10 @@
+<div class="main">
+    <h1>Edit your profile.</h1>
+    <h1>Your username: {{user}}</h1>
+    <h1>Your email: {{user.email}}.</h1>
+    <form method='post' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{profile_form.as_div}}
+        <input type='submit' value='Save change'>
+    </form>
+</div>

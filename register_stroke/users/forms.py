@@ -80,4 +80,4 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'date_of_birth', 'photo']
+        fields = ['first_name', 'surname', 'last_name', 'date_of_birth', 'country_code', 'phone_number', 'photo']

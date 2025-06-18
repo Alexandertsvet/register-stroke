@@ -11,9 +11,11 @@
         <img class="profile-image" src="{{ profile.photo.url }}" alt="photo profile user">
         {% endif %}
         <h2 class="link-body-emphasis mb-1 fst-italic">Профайл пользователя: {{user}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic"> {{profile.first_name}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic"> {{profile.last_name}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic"> {{profile.date_of_birth}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic">Имя {{profile.first_name}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic">Отчество {{profile.surname}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic">Фамилия {{profile.last_name}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic">Дата рождения: {{profile.date_of_birth}}</h2>
+        <h2 class="link-body-emphasis mb-1 fst-italic">Телефон: {{profile.country_code}} {{profile.phone_number}}</h2>
 
     </article>
 
@@ -28,8 +30,17 @@
 
     <hr>
 
+    <div class="profile-user">
+      <a class="" method='post' href="{% url 'users:profile_edit' user.username %}">Edit your profile.</a>
+    </div>
 
+    <hr>
+
+    
 </div>
+
+
+
 
 {% include "registration/profile_aside.html" %}
 {% endblock %}

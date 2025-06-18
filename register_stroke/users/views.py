@@ -2,11 +2,12 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
+from django.http import HttpResponseRedirect
 
 from users.models import Profile
-
+from users.forms import ProfileEditForm
 
 from .forms import UserCreationForm, LoginView_form, PasswordChangeForm_form, PasswordResetForm_form, SetPasswordForm_form
 
@@ -52,3 +53,20 @@ def profile(request, username):
         'profile': profile,
     }
     return render(request, 'registration/profile.html', context)
+
+
+@login_required
+def profile_edit(request, username):
+    profile = request.user.profile
+    if request.method == 'POST':
+        profile_form = ProfileEditForm(instance=profile, data=request.POST, files=request.FILES)
+        if profile_form.is_valid():
+            if bool(request.FILES):
+                profile.photo.delete()
+            profile_form.save()
+            return render(request, 'registration/profile.html', {'user': request.user, 'profile': profile,})  
+        else:
+            return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})
+    else:
+        profile_form = ProfileEditForm()
+    return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})
