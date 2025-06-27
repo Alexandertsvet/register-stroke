@@ -54,19 +54,37 @@ def profile(request, username):
     }
     return render(request, 'registration/profile.html', context)
 
-
 @login_required
 def profile_edit(request, username):
-    profile = request.user.profile
     if request.method == 'POST':
-        profile_form = ProfileEditForm(instance=profile, data=request.POST, files=request.FILES)
+        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+        if profile_form.is_valid():
+            print(profile_form)
+            if bool(request.FILES):
+                get_object_or_404(Profile, user=request.user.id).photo.delete()
+            profile_form.save()
+            
+            return render(request, 'registration/profile.html', {'user': request.user, 'profile': request.user.profile,})  
+        else:
+            messages.error(request, 'Error update your profile')
+    else:
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})
+
+
+"""@login_required
+def profile_edit(request, username):
+    #user = request.user
+    if request.method == 'POST':
+        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
         if profile_form.is_valid():
             if bool(request.FILES):
-                profile.photo.delete()
+                get_object_or_404(Profile, user=request.user.id).photo.delete()
             profile_form.save()
-            return render(request, 'registration/profile.html', {'user': request.user, 'profile': profile,})  
+            
+            return render(request, 'registration/profile.html', {'user': request.user, 'profile': request.user.profile,})  
         else:
-            return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})
+            messages.error(request, 'Error update your profile')
     else:
-        profile_form = ProfileEditForm()
-    return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})
+        profile_form = ProfileEditForm(instance=request.user.profile)
+    return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})"""

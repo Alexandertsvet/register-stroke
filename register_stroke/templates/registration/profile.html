@@ -5,37 +5,56 @@
 {% block content %}
 <div class="row g-5">
   <div class="col-md-8">
+     <section class="vh-100">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
 
-    <article class="blog-post">
-        {% if profile.photo %}
-        <img class="profile-image" src="{{ profile.photo.url }}" alt="photo profile user">
-        {% endif %}
-        <h2 class="link-body-emphasis mb-1 fst-italic">Профайл пользователя: {{user}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic">Имя {{profile.first_name}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic">Отчество {{profile.surname}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic">Фамилия {{profile.last_name}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic">Дата рождения: {{profile.date_of_birth}}</h2>
-        <h2 class="link-body-emphasis mb-1 fst-italic">Телефон: {{profile.country_code}} {{profile.phone_number}}</h2>
+              <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body">
+                    {% if profile.photo %}
+                      <img class="rounded-circle" src="{{ profile.photo.url }}" alt="photo profile user" height="50" width="50">
+                    {% endif %}
+                    <hr>
+                    <div class="card">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item fst-italic">Профайл пользователя: {{user}}</li>
+                        <li class="list-group-item fst-italic">Имя: {{profile.first_name}}</li>
+                        <li class="list-group-item fst-italic">Отчество: {{profile.surname}}</li>
+                        <li class="list-group-item fst-italic">Фамилия: {{profile.last_name}}</li>
+                        <li class="list-group-item fst-italic">Дата рождения: {{profile.date_of_birth}}</li>
+                        <li class="list-group-item fst-italic">Телефон: {{profile.country_code}} {{profile.phone_number}}</li>
+                      </ul>
+                    </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item fst-italic">Страна: </li>
+                        <li class="list-group-item fst-italic">Город: </li>
+                        <li class="list-group-item fst-italic">РСЦ: </li>
+                        <li class="list-group-item fst-italic">ПСО: </li>
+                        <li class="list-group-item fst-italic">Название медицинского учреждения: </li>
+                      </ul>
+                    <hr>
+                    <div class="profile-user text-center">
+                      <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" method='post' href="{% url 'users:profile_edit' user.username %}">Редактировать рофиль</a>
+                    </div>
+                    <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </section>
 
-    </article>
-
-    <article class="blog-post">
-      <h2 class="link-body-emphasis mb-1 fst-italic"></h2>
-      <p class="fst-italic">Страна: <a href="#"></a></p>
-      <p class="fst-italic">Город: </p>
-      <p class="fst-italic">РСЦ: </p>
-      <p class="fst-italic">ПСО: </p>
-      <p class="fst-italic">Название медицинского учреждения: </p>
-    </article>
-
-    <hr>
-
-    <div class="profile-user">
-      <a class="" method='post' href="{% url 'users:profile_edit' user.username %}">Edit your profile.</a>
+    <div class="nav-scroller">
+    <nav class="nav nav-underline justify-content-center">
+        <a class="nav-item nav-link link-body-emphasis" method='post' href="{% url 'users:profile_edit' user.username %}">Редактировать рофиль</a>
+        <a class="nav-item nav-link link-body-emphasis" href="#">...</a>
+        <a class="nav-item nav-link link-body-emphasis" href="#">...</a>
+    </nav>
     </div>
-
     <hr>
 
+    
     
 </div>
 

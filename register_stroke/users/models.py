@@ -57,7 +57,7 @@ class Profile(models.Model):
     country_code = models.CharField(max_length=5, default=EMPTY)
     phone_number = models.CharField(max_length=15, default=EMPTY)
     date_of_birth = models.DateField('Вate of birth', auto_now=False, auto_now_add=False, blank=True, null=True)
-    photo = models.ImageField('Photo user', upload_to='users/profile_images/%Y/%m/%d/', blank=True, null=True, height_field=None, width_field=None, max_length=None)
+    photo = models.ImageField('аватар - ', upload_to='users/profile_images/%Y/%m/%d/', blank=True, null=True, height_field=None, width_field=None, max_length=None)
 
     class Meta:
         ordering = ('user',)

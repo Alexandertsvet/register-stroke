@@ -81,3 +81,18 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['first_name', 'surname', 'last_name', 'date_of_birth', 'country_code', 'phone_number', 'photo']
+        widgets = {
+                'first_name': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'имя...',}),
+                'surname': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'отчество...',}),
+                'last_name': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'фамилия...',}),
+                'date_of_birth': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'дата рождения...',}),
+                'country_code': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'код страны...',}),
+                'phone_number': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'номер телефона...',}),
+
+            }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['country_code'].initial = '+7'
+        self.fields['photo'].widget.attrs.update({"class": "form-control form-control-lg",})
+
