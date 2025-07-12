@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 
-from users.models import User, Profile
+from users.models import User, Profile, Job
 from django.dispatch import receiver
 
 
@@ -8,3 +8,4 @@ from django.dispatch import receiver
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+        Job.objects.create(job=instance)

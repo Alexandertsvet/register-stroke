@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponseRedirect
 
-from users.models import Profile
-from users.forms import ProfileEditForm
+from users.models import Profile, Job, User
+from users.forms import ProfileEditForm, JobEditForm
 
 from .forms import UserCreationForm, LoginView_form, PasswordChangeForm_form, PasswordResetForm_form, SetPasswordForm_form
 
@@ -48,9 +48,11 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
 def profile(request, username):
     user = request.user
     profile = get_object_or_404(Profile, user=username)
+    job = get_object_or_404(Job, job=username)
     context = {
         'user': user,
-        'profile': profile,
+        'profile': profile, 
+        'job': job,
     }
     return render(request, 'registration/profile.html', context)
 
@@ -59,32 +61,37 @@ def profile_edit(request, username):
     if request.method == 'POST':
         profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
         if profile_form.is_valid():
-            print(profile_form)
             if bool(request.FILES):
                 get_object_or_404(Profile, user=request.user.id).photo.delete()
-            profile_form.save()
-            
-            return render(request, 'registration/profile.html', {'user': request.user, 'profile': request.user.profile,})  
+            profile_form.save()        
+            return render(request, 'registration/profile.html', {'user': request.user, 'profile': request.user.profile, 'job': request.user.job})  
         else:
             messages.error(request, 'Error update your profile')
     else:
         profile_form = ProfileEditForm(instance=request.user.profile)
     return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})
 
+@login_required
+def jod(request, username):
+    user = request.user
+    job = get_object_or_404(Job, user=username)
+    context = {
+        'user': user,
+        'job': job,
+    }
+    return render(request, 'registration/profile.html', context)
 
-"""@login_required
-def profile_edit(request, username):
-    #user = request.user
+@login_required
+def job_edit(request, username): 
+
     if request.method == 'POST':
-        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
-        if profile_form.is_valid():
-            if bool(request.FILES):
-                get_object_or_404(Profile, user=request.user.id).photo.delete()
-            profile_form.save()
-            
-            return render(request, 'registration/profile.html', {'user': request.user, 'profile': request.user.profile,})  
+        job_form = JobEditForm(request.POST, instance=request.user.job)
+        if job_form.is_valid():
+            job_form.save()
+            return render(request, 'registration/profile.html', {'user': request.user, 'profile': request.user.profile, 'job': request.user.job})  
         else:
             messages.error(request, 'Error update your profile')
     else:
-        profile_form = ProfileEditForm(instance=request.user.profile)
-    return render(request, 'registration/profile_edit.html', {'profile_form': profile_form,})"""
+        job_form = JobEditForm()
+    return render(request, 'job/job_edit.html', {'user': request.user,'job_form': job_form,})
+

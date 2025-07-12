@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
-from .models import User, Profile
+from .models import User, Profile, Job
+from register_stroke.settings import DATE_INPUT_FORMATS
 
 class UserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -85,7 +86,7 @@ class ProfileEditForm(forms.ModelForm):
                 'first_name': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'имя...',}),
                 'surname': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'отчество...',}),
                 'last_name': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'фамилия...',}),
-                'date_of_birth': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'дата рождения...',}),
+                'date_of_birth': forms.DateInput(format=DATE_INPUT_FORMATS,attrs={'class': 'date form-control form-control-lg','type':'date' ,'placeholder':'дата рождения...',}),
                 'country_code': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'код страны...',}),
                 'phone_number': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'номер телефона...',}),
 
@@ -96,3 +97,17 @@ class ProfileEditForm(forms.ModelForm):
         self.fields['country_code'].initial = '+7'
         self.fields['photo'].widget.attrs.update({"class": "form-control form-control-lg",})
 
+class JobEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Job
+        fields = ['country', 'town', 'RVC', 'PVD', 'medical_organization']
+
+        widgets = {
+                'country': forms.Select(attrs={'class': 'form-select form-select-lg', 'placeholder':'страна...',}),
+                'town': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'город...',}),
+                'RVC': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'РСЦ...',}),
+                'PVD': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'ПСО...',}),
+                'medical_organization': forms.TextInput(attrs={'class': 'form-control form-control-lg', 'placeholder':'медицинская организация...',}),
+
+            }

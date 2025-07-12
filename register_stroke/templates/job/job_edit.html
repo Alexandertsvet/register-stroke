@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Job{% endblock %}
+{% block content %}
+<div class="row g-5">
+  <div class="col-md-8">
+
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+                    <h2>Редактировать место работы</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div data-mdb-input-init class="form-outline mb-4">
+                                <label for="{{ job_form.country.id_for_label }}" class="">{{ job_form.country.label }}</label>
+                                {{ job_form.country }}
+                                {% if job_form.country.errors %}
+                                {% for error in job_form.country.errors %}
+                                    <div class="card-body">
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                    </div>
+                                {% endfor %}                    
+                                {% endif %}
+                        </div>
+                        <div data-mdb-input-init class="form-outline mb-4">
+                                <label for="{{ job_form.town.id_for_label }}" class="">{{ job_form.town.label }}</label>
+                                {{ job_form.town }}
+                                {% if job_form.town.errors %}
+                                {% for error in job_form.town.errors %}
+                                    <div class="card-body">
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                    </div>
+                                {% endfor %}                    
+                                {% endif %}
+                        </div>
+                        <div data-mdb-input-init class="form-outline mb-4">
+                                <label for="{{ job_form.RVC.id_for_label }}" class="">{{ job_form.RVC.label }}</label>
+                                {{ job_form.RVC }}
+                                {% if job_form.RVC.errors %}
+                                {% for error in job_form.RVC.errors %}
+                                    <div class="card-body">
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                    </div>
+                                {% endfor %}                    
+                                {% endif %}
+                        </div>
+                        <div data-mdb-input-init class="form-outline mb-4">
+                                <label for="{{ job_form.PVD.id_for_label }}" class="">{{ job_form.PVD.label }}</label>
+                                {{ job_form.PVD }}
+                                {% if job_form.PVD.errors %}
+                                {% for error in job_form.PVD.errors %}
+                                    <div class="card-body">
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                    </div>
+                                {% endfor %}                    
+                                {% endif %}
+                        </div>
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <label for="{{ job_form.medical_organization.id_for_label }}" class="">{{ job_form.medical_organization.label }}</label>
+                                {{ job_form.medical_organization }}
+                                {% if job_form.medical_organization.errors %}
+                                {% for error in job_form.medical_organization.errors %}
+                                    <div class="card-body">
+                                    <p class="text-danger">{{ error|escape }}</p>
+                                    </div>
+                                {% endfor %}                    
+                                {% endif %}
+                        </div>
+
+                        <button data-mdb-button-init data-mdb-ripple-init  class="btn btn-outline-primary btn-rounded btn-lg" type="submit">Сохранить изменения</button>
+                    </form>
+                        
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    
+</div>
+{% include "registration/profile_aside.html" %}
+{% endblock %}

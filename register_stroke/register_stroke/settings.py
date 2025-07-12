@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'core.apps.CoreConfig',
+    'case.apps.CaseConfig',
+    'audio.apps.AudioConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +149,7 @@ LOGIN_URL = 'users:login'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / 'email'
 DEFAULT_FROM_EMAIL = 'nevrogram@mail.ru'
+
+
+
+DATE_INPUT_FORMATS = '%d.%m.%Y'

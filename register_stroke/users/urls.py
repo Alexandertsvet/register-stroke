@@ -2,7 +2,7 @@ from django.urls import path, include, reverse_lazy
 from .views import SignUpView, LoginView, LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.contrib.auth import views as auth_views
 
-from users.views import profile, profile_edit
+from users.views import profile, profile_edit, job_edit
 
 app_name = 'users'
 
@@ -30,4 +30,5 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
     path('profile/<str:username>/', profile, name='profile'),
     path('profile/edit/<str:username>/', profile_edit, name='profile_edit'),
+    path('job/edit/<str:username>/', job_edit, name='job_edit'),
 ]

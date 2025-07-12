@@ -49,17 +49,25 @@
         <li class="nav-item">
           <a class="nav-link {% if view_name  == 'homepage:homepage' %}active{% endif %}" href="{%url 'homepage:homepage'%}">ГЛАВНАЯ</a>
         </li>
-  
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <a class="nav-link {% if view_name  == 'case:patient_create' %}active{% endif %}" href="{%url 'case:patient_create'%}">Создать</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link {% if view_name  == 'audio:audio' %}active{% endif %}" method='post' href="{%url 'audio:audio'%}">Загрузит аудио</a>
+        </li>
+        {% endif %}
+
       </ul>
+      
       <div class="card-body d-flex flex-row gap-3">
         {% if view_name == 'homepage:homepage' %}
         <a class="nav-link" href="{%url 'homepage:homepage'%}">ГЛАВНАЯ</a>
-        {% elif view_name == 'blog:post_list' %}
-        
-
+        <p>Текст</p>
+        {% elif view_name == 'case:patient_create' %}
+          <p>Текс</p>
+        {% elif view_name == 'audio:audio' %}
+          <p>Проблемы подключния микрофона. Вы не сможете воспользоваться функцией записи голоса. Подключите микрофон, обновите страницу. Включите кнопку Record, при записи изменится цвет кнопики на красный.</p>
         {% endif %}
       </div>
       {% endwith %} 

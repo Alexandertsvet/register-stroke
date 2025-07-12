@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru" data-tag="body" data-bs-theme="light">
+<html lang="ru" data-tag="body" data-bs-theme="auto">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,6 +29,9 @@
       {% include 'includes/aside.html' %}
       {% include 'includes/footer.html' %} 
     <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/functions/color-modes.js' %}"></script>
+    <script src="{% static 'js/functions/main.js' %}"></script>
+
     <script>
       const darkModeSwitchInput = document.querySelector('input#darkModeSwitch');
       const bodyTag = document.querySelector('[data-tag="body"]');

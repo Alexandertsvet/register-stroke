@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
-from users.constant import MAX_LENGHT_USERS, MAX_LENGHT_EMAIL, EMPTY
+from users.constant import MAX_LENGHT_USERS, MAX_LENGHT_EMAIL, EMPTY, MAX_LENGHT_JOB
 
 
 class User(AbstractUser):
@@ -67,3 +67,19 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'Профиль {self.user}'
+
+
+class Job(models.Model):
+    class Country_code(models.TextChoices):
+        RUSSIA = 'RU', 'Россия'
+        BELARUS = 'BY','Белорусия'
+
+    job = models.OneToOneField('User', verbose_name=('job'), on_delete=models.CASCADE)
+    country = models.CharField(max_length=3, choices=Country_code.choices, default=Country_code.RUSSIA)
+    town = models.CharField('Town', max_length=MAX_LENGHT_JOB, blank=True, null=True)
+    RVC = models.CharField('Regional Vascular Center', max_length=MAX_LENGHT_JOB, blank=True, null=True)
+    PVD = models.CharField('Primary vascular department', max_length=MAX_LENGHT_JOB, blank=True, null=True)
+    medical_organization = models.CharField('medical organization', max_length=MAX_LENGHT_JOB, blank=True, null=True)
+
+    def __str__(self):
+        return f'Job {self.job}'
